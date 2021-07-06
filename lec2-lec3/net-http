@@ -1,0 +1,65 @@
+package main
+
+import (
+	"fmt"
+	"io"
+	"log"
+	"net/http"
+)
+
+func calculation(w http.ResponseWriter, r *http.Request) {
+	io.WriteString(w, "num1: "+r.FormValue("num1"))
+	io.WriteString(w, "\nnum2: "+r.FormValue("num2"))
+	a := r.FormValue("num1")
+	fmt.Printf(a)
+
+}
+
+// queryParamDisplayHandler(rw, r)
+func handleRequests(a int) {
+	http.HandleFunc("ds", calculation)
+	log.Fatal(http.ListenAndServe(":8090", nil))
+
+}
+
+const (
+	MethodGet     = "GET"
+	MethodHead    = "HEAD"
+	MethodPost    = "POST"
+	MethodPut     = "PUT"
+	MethodPatch   = "PATCH"
+	MethodDelete  = "DELETE"
+	MethodConnect = "CONNECT"
+	MethodOptions = "OPTIONS"
+	MethodTrace   = "TRACE"
+)
+
+type Article struct {
+	Title   string `json:"Title"`
+	Desc    string `json:"desc"`
+	Content string `json:"content"`
+}
+
+var Articles []Article
+
+func main() {
+
+	handleRequests()
+	// handleRequests()
+	// c := &http.Client{}
+	// resp, err := c.Get("https://google.com")
+	// if err != nil {
+	// 	return
+	// }
+	// req, err := http.NewRequest(http.MethodGet, "https://google.com", nil)
+	// if err != nil {
+	// 	return
+	// }
+	// resp.Header.Add("X-Test", "test")
+	// resp, err = c.Do(req)
+	// if err != nil {
+	// 	return
+	// }
+	// fmt.Println(resp)
+
+}
